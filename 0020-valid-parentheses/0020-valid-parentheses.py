@@ -1,13 +1,13 @@
 class Solution(object):
     def isValid(self, s):
-        a=[]
-        b='{(['
+        d={'}':'{',']':'[',')':'('}
+        temp=[]
         for i in s:
-            if i in b:
-                a.append(i)
-            else:
-                if  (not a) or (i==']' and a[-1]!='[')   or (i==')' and a[-1]!='(') or  (i=='}' and a[-1]!='{'):
-                    return False
+            if i in d:
+                if temp and temp[-1]==d[i]:
+                    temp.pop()
                 else:
-                    a.pop()
-        return not a 
+                    return False
+            else:
+                temp.append(i)
+        return len(temp)==0
